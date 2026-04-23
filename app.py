@@ -26,7 +26,10 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # Подключение к Elasticsearch
-es = Elasticsearch("http://localhost:9200")
+try:
+    es = Elasticsearch("http://localhost:9200")
+except:
+    es = None
 
 # ============================================================
 # ЗАДАЧА 3: Создание модели User
@@ -93,18 +96,18 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        es.index(index="users", document={
-            "id": new_user.id,
-            "name": new_user.name,
-            "email": new_user.email,
-            "created_at": datetime.utcnow().isoformat()
-        })
+        if es:
+            es.index(index="users", document={
+                "id": new_user.id,
+                "name": new_user.name,
+                "email": new_user.email,
+                "created_at": datetime.utcnow().isoformat()
+            })
 
         flash('Cont creat cu succes! Te poti autentifica.', 'success')
         return redirect(url_for('login'))
 
     return render_template('register.html')
-
 # ============================================================
 # ЗАДАЧА 6: Функция проверки пользователя
 # ============================================================
