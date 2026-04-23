@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Toți utilizatorii</h2>
+<table>
+    <tr><th>ID</th><th>Nume</th><th>Email</th><th>Acțiuni</th></tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+            <a href="/edit/{{ user.id }}" class="btn">Editează</a>
+            <a href="/delete/{{ user.id }}" class="btn btn-danger" onclick="return confirm('Ștergi utilizatorul?')">Șterge</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

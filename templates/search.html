@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Căutare utilizatori</h2>
+<form method="POST">
+    <input type="text" name="query" value="{{ query }}" placeholder="Caută după nume sau email...">
+    <button type="submit">Caută</button>
+</form>
+
+{% if results %}
+    <h3>Rezultate pentru "{{ query }}":</h3>
+    <table>
+        <tr><th>ID</th><th>Nume</th><th>Email</th></tr>
+        {% for user in results %}
+        <tr><td>{{ user.id }}</td><td>{{ user.name }}</td><td>{{ user.email }}</td></tr>
+        {% endfor %}
+    </table>
+{% elif query %}
+    <p>Nu s-au găsit rezultate pentru "{{ query }}".</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Dashboard</h2>
+<p>Bun venit, <strong>{{ name }}</strong>! Ești autentificat.</p>
+<a href="/add_post" class="btn">Adaugă o postare</a>
+<a href="/logout" class="btn btn-danger">Logout</a>
+{% endblock %}

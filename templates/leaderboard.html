@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🏆 Лидерборд — кто больше внёс</h2>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Пользователь</th>
+        <th>Общая сумма</th>
+    </tr>
+    {% for item in leaderboard %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ item.user_name }}</td>
+        <td><strong>${{ "%.2f"|format(item.total) }}</strong></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3 style="margin-top:40px">📊 График</h3>
+<iframe src="http://localhost:5601/app/dashboards#/view/5939c230-06c0-4c9a-a227-5246328fe253?embed=true&_g=%28refreshInterval%3A%28pause%3A%21t%2Cvalue%3A60000%29%2Ctime%3A%28from%3Anow-30m%2Cto%3Anow%29%29"
+        height="600"
+        width="100%"
+        style="border:none; margin-top:10px">
+</iframe>
+{% endblock %}
