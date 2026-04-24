@@ -253,7 +253,13 @@ def leaderboard():
      .order_by(func.sum(Transaction.amount).desc())\
      .all()
 
-    return render_template('leaderboard.html', leaderboard=results)
+    names = [r.user_name for r in results]
+    totals = [r.total for r in results]
+
+    return render_template('leaderboard.html',
+                           leaderboard=results,
+                           names=names,
+                           totals=totals)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
